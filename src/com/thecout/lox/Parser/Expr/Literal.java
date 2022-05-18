@@ -7,12 +7,6 @@ public class Literal extends Expr {
 
 
     public final Object value;
-
-    @Override
-    public String print() {
-        return String.valueOf(value);
-    }
-
     @Override
     public <R> R accept(ExprVisitor<R> exprVisitor) {
         return exprVisitor.visitLiteralExpr(this);

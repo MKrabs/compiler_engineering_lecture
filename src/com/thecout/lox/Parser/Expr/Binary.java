@@ -15,11 +15,6 @@ public class Binary extends Expr {
     public final Expr right;
 
     @Override
-    public String print() {
-        return "(%s %s %s)".formatted(operator.lexeme, left.print(), right.print());
-    }
-
-    @Override
     public <R> R accept(ExprVisitor<R> exprVisitor) {
         return exprVisitor.visitBinaryExpr(this);
     }

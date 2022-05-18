@@ -9,12 +9,6 @@ public class Variable extends Expr {
 
 
     public final Token name;
-
-    @Override
-    public String print() {
-        return name.lexeme;
-    }
-
     @Override
     public <R> R accept(ExprVisitor<R> exprVisitor) {
         return exprVisitor.visitVariableExpr(this);

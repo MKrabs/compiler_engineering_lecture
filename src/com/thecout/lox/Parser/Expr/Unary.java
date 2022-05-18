@@ -13,11 +13,6 @@ public class Unary extends Expr {
     public final Expr right;
 
     @Override
-    public String print() {
-        return "%s%s".formatted(operator.lexeme, right.print());
-    }
-
-    @Override
     public <R> R accept(ExprVisitor<R> exprVisitor) {
         return exprVisitor.visitUnaryExpr(this);
     }

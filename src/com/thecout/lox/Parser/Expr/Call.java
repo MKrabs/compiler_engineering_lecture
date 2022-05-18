@@ -16,12 +16,6 @@ public class Call extends Expr {
     public final List<Expr> arguments;
 
     @Override
-    public String print() {
-        String args = arguments.stream().map(Expr::print).collect(Collectors.joining(" "));
-        return "(%s %s)".formatted(callee.print(), args);
-    }
-
-    @Override
     public <R> R accept(ExprVisitor<R> exprVisitor) {
         return exprVisitor.visitCallExpr(this);
     }

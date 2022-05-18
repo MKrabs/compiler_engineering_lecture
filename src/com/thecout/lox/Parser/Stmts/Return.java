@@ -10,11 +10,6 @@ public class Return extends Stmt {
     public final Expr value;
 
     @Override
-    public String print() {
-        return "(return %s)".formatted(value.print());
-    }
-
-    @Override
     public <R> R accept(StmtVisitor<R> stmtVisitor) {
         return stmtVisitor.visitReturnStmt(this);
     }

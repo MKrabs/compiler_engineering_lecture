@@ -16,11 +16,6 @@ public class If extends Stmt {
     public final Stmt elseBranch;
 
     @Override
-    public String print() {
-        return "(if %s %s %s)".formatted(condition.print(), thenBranch.print(), elseBranch.print());
-    }
-
-    @Override
     public <R> R accept(StmtVisitor<R> stmtVisitor) {
         return stmtVisitor.visitIfStmt(this);
     }

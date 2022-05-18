@@ -13,11 +13,6 @@ public class While extends Stmt {
     public final Stmt body;
 
     @Override
-    public String print() {
-        return "(while %s %s)".formatted(condition.print(), body.print());
-    }
-
-    @Override
     public <R> R accept(StmtVisitor<R> stmtVisitor) {
         return stmtVisitor.visitWhileStmt(this);
     }
