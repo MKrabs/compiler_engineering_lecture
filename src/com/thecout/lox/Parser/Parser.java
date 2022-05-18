@@ -123,7 +123,7 @@ public class Parser {
         Expr expr = expression();
         consume(SEMICOLON, "Expect ';' after return expression."); // [parens]
 
-        return new Return(null, expr); // TODO
+        return new Return(expr); // TODO
     }
 
     private Stmt varDeclaration() {
@@ -303,11 +303,11 @@ public class Parser {
             if (match(LEFT_PAREN)) {
                 List<Expr> exprList = arguments();
                 consume(RIGHT_PAREN, "Expected ')' after list of args");
-                expr = new Call(expr, null, exprList);
+                expr = new Call(expr, exprList);
             } else if (match(DOT)) {
                 List<Expr> exprList = new ArrayList<>();
                 exprList.add(new Literal(consume(IDENTIFIER, "Expected identifier after dot call")));
-                expr = new Call(expr, null, exprList);
+                expr = new Call(expr, exprList);
             }
         }
 
