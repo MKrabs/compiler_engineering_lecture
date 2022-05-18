@@ -16,7 +16,6 @@ public class ParserTest {
             fun printSum(a,b) {
             print a+b;
             }
-            print 25+60;
             """;
 
     @Test
