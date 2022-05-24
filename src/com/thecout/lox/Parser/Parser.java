@@ -55,7 +55,7 @@ public class Parser {
 
     private Stmt declaration() {
         try {
-            if (match(FUN)) return function("function");
+            if (match(FUN)) return function();
             if (match(VAR)) return varDeclaration();
 
             return statement();
@@ -144,7 +144,9 @@ public class Parser {
     }
 
     private Stmt expressionStatement() {
-        return null;
+        Expr expr = expression();
+        consume(SEMICOLON, "Missing ; after expression");
+        return new Expression(expr);
     }
 
 
@@ -169,7 +171,7 @@ public class Parser {
     // SEMICOLON         SEMICOLON           ;
     // EOF
 
-    private Function function(String kind) {
+    private Function function() {
         Token identifier = consume(IDENTIFIER, "Expected function identifier.");
         consume(LEFT_PAREN, "Expected '(' after function name.");
 
