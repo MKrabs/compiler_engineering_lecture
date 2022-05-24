@@ -27,7 +27,7 @@ public class AstPrinter implements ExprVisitor<String>, StmtVisitor<String> {
 
     @Override
     public String visitCallExpr(Call expr) {
-        String args = expr.arguments.stream().map(expr -> ).collect(Collectors.joining(" "));
+        String args = expr.arguments.stream().map(exp -> exp.accept(this)).collect(Collectors.joining(" "));
         return "(%s %s)".formatted(expr.callee.accept(this), args);
     }
 
@@ -58,7 +58,7 @@ public class AstPrinter implements ExprVisitor<String>, StmtVisitor<String> {
 
     @Override
     public String visitBlockStmt(Block stmt) {
-        return "(%s)".formatted(stmt.statements.stream().map(Stmt::print).collect(Collectors.joining("\n")));
+        return "(%s)".formatted(stmt.statements.stream().map(exp -> exp.accept(this)).collect(Collectors.joining("\n")));
     }
 
     @Override
@@ -69,7 +69,7 @@ public class AstPrinter implements ExprVisitor<String>, StmtVisitor<String> {
     @Override
     public String visitFunctionStmt(Function stmt) {
         String params = stmt.parameters.stream().map(t -> t.lexeme).collect(Collectors.joining(" "));
-        String body = stmt.body.stream().map(Stmt::print).collect(Collectors.joining("\n"));
+        String body = stmt.body.stream().map(exp -> exp.accept(this)).collect(Collectors.joining("\n"));
         return "(Function %s %s )".formatted(params, body);
     }
 
