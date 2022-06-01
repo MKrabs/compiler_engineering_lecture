@@ -25,6 +25,7 @@ import com.thecout.lox.TokenType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.thecout.lox.TokenType.*;
 
@@ -42,7 +43,6 @@ public class Parser {
     public List<Stmt> parse() {
         List<Stmt> statements = new ArrayList<>();
         while (!isAtEnd()) {
-            System.out.println(peek());
             statements.add(declaration());
         }
 
@@ -78,10 +78,10 @@ public class Parser {
     private Stmt forStatement() {
         consume(LEFT_PAREN, "Expect '(' after 'for'.");
         Stmt varDeclaration = null;
-        if (match(VAR))
-            varDeclaration = varDeclaration();
-        else if (match(SEMICOLON))
+        if (match(SEMICOLON))
             consume(SEMICOLON, "Expected ';' after the variable declaration");
+        else if (match(VAR))
+            varDeclaration = varDeclaration();
         else
             varDeclaration = expressionStatement();
 
@@ -128,7 +128,12 @@ public class Parser {
 
     private Stmt varDeclaration() {
         Token name = consume(IDENTIFIER, "Expected variable name as STRING");
-        Expr expr = expression();
+
+        Expr expr = null;
+        if (match(EQUAL))
+            expr = expression();
+
+        consume(SEMICOLON, "Expected ; after var declaration");
 
         return new Var(name, expr);
     }
@@ -175,24 +180,23 @@ public class Parser {
         Token identifier = consume(IDENTIFIER, "Expected function identifier.");
         consume(LEFT_PAREN, "Expected '(' after function name.");
 
-        List<Token> inputs = new ArrayList<>();
-        if (!match(RIGHT_PAREN))
-            inputs.add(consume(IDENTIFIER, "Expected function name."));
+        List<Token> inputs = arguments().stream().map(s -> ((Variable)s).name).collect(Collectors.toList());
 
-        while (!match(RIGHT_PAREN)) {
-            consume(COMMA, "Expected ',' function name.");
-            inputs.add(consume(IDENTIFIER, "Expected function name."));
+        consume(RIGHT_PAREN, "Bla");
+
+        List<Stmt> body;
+        if (match(LEFT_BRACE))
+            body = block();
+        else {
+            body = new ArrayList<>();
+            body.add(statement());
         }
-
-        List<Stmt> body = block();
 
         return new Function(identifier, inputs, body);
     }
 
     private List<Stmt> block() {
         List<Stmt> stmts = new ArrayList<>();
-
-        consume(LEFT_BRACE, "Expected '{' at the beginning of a block");
 
         while (!match(RIGHT_BRACE)) {
             stmts.add(statement());
@@ -208,7 +212,7 @@ public class Parser {
 
             if (or instanceof Variable) {
                 assert assignment != null;
-                Token name = ((Variable) assignment).name;
+                Token name = ((Variable) or).name;
                 return new Assign(name, assignment);
             }
         }
@@ -317,8 +321,12 @@ public class Parser {
     }
 
     private Expr primary() {
-        if (match(TRUE, FALSE, NIL, NUMBER, STRING, IDENTIFIER))
+        if (match(TRUE, FALSE, NIL))
             return new Literal(previous());
+        if (match(NUMBER, STRING))
+            return new Literal(previous().literal);
+        if (match(IDENTIFIER))
+            return new Variable(previous());
         if (match(LEFT_PAREN)) {
             Expr expr = expression();
             consume(RIGHT_PAREN, "Expected ')' after primary expression");
@@ -392,9 +400,7 @@ public class Parser {
 
         Scanner scanner = new Scanner(program);
         List<Token> actual = scanner.scan();
-        System.out.println(actual);
         Parser parser = new Parser(actual);
         List<Stmt> statements = parser.parse();
-        statements.forEach(System.out::println);
     }
 }

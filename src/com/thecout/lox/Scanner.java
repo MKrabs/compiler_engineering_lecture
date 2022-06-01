@@ -81,6 +81,8 @@ public class Scanner {
                                 returnList.add(new Token(TokenType.EQUAL, TokenType.EQUAL.name(), str, lineNumber));
                         case ">" ->
                                 returnList.add(new Token(TokenType.GREATER, TokenType.GREATER.name(), str, lineNumber));
+                        case "<" ->
+                                returnList.add(new Token(TokenType.LESS, TokenType.LESS.name(), str, lineNumber));
                         case "<=" ->
                                 returnList.add(new Token(TokenType.LESS_EQUAL, TokenType.LESS_EQUAL.name(), str, lineNumber));
                         case "&&" ->
