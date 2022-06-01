@@ -44,7 +44,7 @@ public class Scanner {
             };
 
             returnList.addAll(Objects.requireNonNull(scanLine(temp[0], lineNumber)));
-            returnList.add(new Token(STRING, STRING.name(), temp[1], lineNumber));
+            returnList.add(new Token(STRING, temp[1], temp[1], lineNumber));
             returnList.addAll(Objects.requireNonNull(scanLine(temp[2], lineNumber)));
 
             return returnList;
@@ -56,45 +56,45 @@ public class Scanner {
                     returnList.addAll(Objects.requireNonNull(scanLine(line.substring(0, line.indexOf(str)), lineNumber)));
                     switch (str) {
                         case "(" ->
-                                returnList.add(new Token(TokenType.LEFT_PAREN, TokenType.LEFT_PAREN.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.LEFT_PAREN, str, str, lineNumber));
                         case ")" ->
-                                returnList.add(new Token(TokenType.RIGHT_PAREN, TokenType.RIGHT_PAREN.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.RIGHT_PAREN, str, str, lineNumber));
                         case "{" ->
-                                returnList.add(new Token(TokenType.LEFT_BRACE, TokenType.LEFT_BRACE.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.LEFT_BRACE, str, str, lineNumber));
                         case "}" ->
-                                returnList.add(new Token(TokenType.RIGHT_BRACE, TokenType.RIGHT_BRACE.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.RIGHT_BRACE, str, str, lineNumber));
                         case "," ->
-                                returnList.add(new Token(TokenType.COMMA, TokenType.COMMA.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.COMMA, str, str, lineNumber));
                         case "+" ->
-                                returnList.add(new Token(TokenType.PLUS, TokenType.PLUS.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.PLUS, str, str, lineNumber));
                         case "-" ->
-                                returnList.add(new Token(TokenType.MINUS, TokenType.MINUS.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.MINUS, str, str, lineNumber));
                         case ";" ->
-                                returnList.add(new Token(TokenType.SEMICOLON, TokenType.SEMICOLON.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.SEMICOLON, str, str, lineNumber));
                         case "/" ->
-                                returnList.add(new Token(TokenType.SLASH, TokenType.SLASH.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.SLASH, str, str, lineNumber));
                         case "*" ->
-                                returnList.add(new Token(TokenType.STAR, TokenType.STAR.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.STAR, str, str, lineNumber));
                         case "!" ->
-                                returnList.add(new Token(TokenType.BANG, TokenType.BANG.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.BANG, str, str, lineNumber));
                         case "=" ->
-                                returnList.add(new Token(TokenType.EQUAL, TokenType.EQUAL.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.EQUAL, str, str, lineNumber));
                         case ">" ->
-                                returnList.add(new Token(TokenType.GREATER, TokenType.GREATER.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.GREATER, str, str, lineNumber));
                         case "<" ->
-                                returnList.add(new Token(TokenType.LESS, TokenType.LESS.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.LESS, str, str, lineNumber));
                         case "<=" ->
-                                returnList.add(new Token(TokenType.LESS_EQUAL, TokenType.LESS_EQUAL.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.LESS_EQUAL, str, str, lineNumber));
                         case "&&" ->
-                                returnList.add(new Token(TokenType.AND, TokenType.AND.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.AND, str, str, lineNumber));
                         case "||" ->
-                                returnList.add(new Token(TokenType.OR, TokenType.OR.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.OR, str, str, lineNumber));
                         case ">=" ->
-                                returnList.add(new Token(TokenType.GREATER_EQUAL, TokenType.GREATER_EQUAL.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.GREATER_EQUAL, str, str, lineNumber));
                         case "==" ->
-                                returnList.add(new Token(TokenType.EQUAL_EQUAL, TokenType.EQUAL_EQUAL.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.EQUAL_EQUAL, str, str, lineNumber));
                         case "!=" ->
-                                returnList.add(new Token(TokenType.BANG_EQUAL, TokenType.BANG_EQUAL.name(), str, lineNumber));
+                                returnList.add(new Token(TokenType.BANG_EQUAL, str, str, lineNumber));
                         default -> {}
                     }
                     returnList.addAll(Objects.requireNonNull(scanLine(line.substring(line.indexOf(str) + str.length()), lineNumber)));
@@ -107,25 +107,25 @@ public class Scanner {
                 if(line.equals(keyword)) {
                     switch (keyword) {
                         case "else" ->
-                                returnList.add(new Token(TokenType.ELSE, TokenType.ELSE.name(), keyword, lineNumber));
+                                returnList.add(new Token(TokenType.ELSE, keyword, keyword, lineNumber));
                         case "false" ->
-                                returnList.add(new Token(TokenType.FALSE, TokenType.FALSE.name(), keyword, lineNumber));
+                                returnList.add(new Token(TokenType.FALSE, keyword, keyword, lineNumber));
                         case "fun" ->
-                                returnList.add(new Token(TokenType.FUN, TokenType.FUN.name(), keyword, lineNumber));
+                                returnList.add(new Token(TokenType.FUN, keyword, keyword, lineNumber));
                         case "for" ->
-                                returnList.add(new Token(TokenType.FOR, TokenType.FOR.name(), keyword, lineNumber));
+                                returnList.add(new Token(TokenType.FOR, keyword, keyword, lineNumber));
                         case "if" ->
-                                returnList.add(new Token(TokenType.IF, TokenType.IF.name(), keyword, lineNumber));
+                                returnList.add(new Token(TokenType.IF, keyword, keyword, lineNumber));
                         case "print" ->
-                                returnList.add(new Token(TokenType.PRINT, TokenType.PRINT.name(), keyword, lineNumber));
+                                returnList.add(new Token(TokenType.PRINT, keyword, keyword, lineNumber));
                         case "return" ->
-                                returnList.add(new Token(TokenType.RETURN, TokenType.RETURN.name(), keyword, lineNumber));
+                                returnList.add(new Token(TokenType.RETURN, keyword, keyword, lineNumber));
                         case "true" ->
-                                returnList.add(new Token(TokenType.TRUE, TokenType.TRUE.name(), keyword, lineNumber));
+                                returnList.add(new Token(TokenType.TRUE, keyword, keyword, lineNumber));
                         case "var" ->
-                                returnList.add(new Token(TokenType.VAR, TokenType.VAR.name(), keyword, lineNumber));
+                                returnList.add(new Token(TokenType.VAR, keyword, keyword, lineNumber));
                         case "while" ->
-                                returnList.add(new Token(TokenType.WHILE, TokenType.WHILE.name(), keyword, lineNumber));
+                                returnList.add(new Token(TokenType.WHILE, keyword, keyword, lineNumber));
                         default -> {
                         }
                     }
@@ -134,20 +134,20 @@ public class Scanner {
             }
 
             try {
-                returnList.add(new Token(NUMBER, NUMBER.name(), Double.parseDouble(line), lineNumber));
+                returnList.add(new Token(NUMBER, line, Double.parseDouble(line), lineNumber));
                 return returnList;
             } catch (Exception e) {
                 if(line.contains(".")){
                     String[] temp = line.split("\\.");
 
                     returnList.addAll(Objects.requireNonNull(scanLine(temp[0], lineNumber)));
-                    returnList.add(new Token(DOT, DOT.name(), ".", lineNumber));
+                    returnList.add(new Token(DOT, ".", ".", lineNumber));
                     returnList.addAll(Objects.requireNonNull(scanLine(temp[1], lineNumber)));
 
                     return returnList;
                 }
 
-                returnList.add(new Token(IDENTIFIER, IDENTIFIER.name(), line, lineNumber));
+                returnList.add(new Token(IDENTIFIER, line, line, lineNumber));
             }
 
             return returnList;
